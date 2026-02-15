@@ -267,8 +267,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 Having issues? Want to share your success?
 
-- 📧 Email: your@email.com
-- 🐦 Twitter: @yourhandle
+- 📧 Email: dev.gyinae@gmail.com
 - 💬 Discussions: GitHub Discussions tab
 
 ## 🗺️ Roadmap
