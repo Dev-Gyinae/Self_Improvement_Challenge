@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🐔 The Chicken Army - 90 Day Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(251, 191, 36, 0.3);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1.2em;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* Backup Controls */
+        .backup-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .backup-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .backup-btn:hover {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: #fbbf24;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3);
+        }
+
+        .backup-btn.danger:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #3b82f6;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Main Pet Section */
+        .main-pet-section {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-pet-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .main-pet-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-pet {
+            text-align: center;
+            flex: 0 0 auto;
+        }
+
+        .main-chicken {
+            font-size: 200px;
+            line-height: 1;
+            filter: drop-shadow(0 25px 25px rgba(0,0,0,0.5));
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .main-chicken:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .main-stats {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(251, 191, 36, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9em;
+            margin-top: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            margin: 25px 0;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 10px 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+            background-size: 200% 100%;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+            animation: progress-shimmer 2s linear infinite;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.3), transparent);
+            border-radius: 12px 12px 0 0;
+        }
+
+        @keyframes progress-shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Task Grid */
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .task-card {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .task-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(251, 191, 36, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+                        0 0 40px rgba(251, 191, 36, 0.1);
+        }
+
+        .task-card:hover::before {
+            opacity: 1;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .task-chicken {
+            font-size: 72px;
+            line-height: 1;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .task-card:hover .task-chicken {
+            transform: scale(1.1);
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .task-category {
+            font-size: 0.9em;
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .task-stage {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(251, 191, 36, 0.15);
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: #fbbf24;
+            margin-top: 8px;
+            font-weight: 600;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .chicken-color-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-left: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+        }
+
+        .task-stats {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            color: #94a3b8;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        .task-description {
+            font-size: 0.85em;
+            color: #94a3b8;
+            margin: 15px 0;
+            font-style: italic;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border-left: 3px solid rgba(251, 191, 36, 0.5);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .complete-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #0a0e27;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+        }
+
+        .complete-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .complete-btn:hover:not(:disabled)::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .complete-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(251, 191, 36, 0.5);
+        }
+
+        .complete-btn:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        .complete-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: linear-gradient(135deg, #475569, #334155);
+            box-shadow: none;
+        }
+
+        .view-details-btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.08);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .view-details-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .modal-chicken {
+            font-size: 100px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
+
+        .modal-close {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #94a3b8;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        .modal-stats {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-stats > div {
+            margin: 12px 0;
+            font-size: 1.05em;
+        }
+
+        .modal-stats strong {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .completion-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin: 20px 0;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.85em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .calendar-day:hover {
+            transform: scale(1.1);
+        }
+
+        .calendar-day.completed {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-color: #10b981;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4),
+                        0 0 40px rgba(16, 185, 129, 0.3);
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            font-weight: 700;
+            font-size: 1.05em;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4),
+                        0 0 40px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Celebration effect */
+        @keyframes celebrate {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.3) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        .celebrating {
+            animation: celebrate 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Chicken Growth Stage Animations */
+        @keyframes eggWobble {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+
+        @keyframes hatchingShake {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-5deg) scale(1.02); }
+            50% { transform: rotate(5deg) scale(0.98); }
+            75% { transform: rotate(-5deg) scale(1.02); }
+        }
+
+        @keyframes babyBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes juvenileHop {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        @keyframes adultStrut {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(3px) rotate(2deg); }
+            75% { transform: translateX(-3px) rotate(-2deg); }
+        }
+
+        @keyframes championPulse {
+            0%, 100% { transform: scale(1); filter: brightness(1) drop-shadow(0 10px 15px rgba(0,0,0,0.4)); }
+            50% { transform: scale(1.1); filter: brightness(1.2) drop-shadow(0 15px 25px rgba(251, 191, 36, 0.6)); }
+        }
+
+        /* Apply stage animations */
+        .stage-egg { animation: eggWobble 2s infinite ease-in-out; }
+        .stage-hatching { animation: hatchingShake 1s infinite ease-in-out; }
+        .stage-baby { animation: babyBounce 1.5s infinite ease-in-out; }
+        .stage-juvenile { animation: juvenileHop 1.2s infinite ease-in-out; }
+        .stage-adult { animation: adultStrut 2s infinite ease-in-out; }
+        .stage-champion { animation: championPulse 2s infinite ease-in-out; }
+
+        /* File input styling */
+        .hidden {
+            display: none;
+        }
+
+        /* Backup info */
+        .backup-info {
+            text-align: right;
+            margin-bottom: 15px;
+            color: #64748b;
+            font-size: 0.9em;
+            font-weight: 600;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            display: inline-block;
+            float: right;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 10px;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .backup-controls {
+                position: relative;
+                top: auto;
+                right: auto;
+                justify-content: center;
+                margin-top: 20px;
+            }
+            
+            .main-chicken {
+                font-size: 120px;
+            }
+            
+            .task-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated particles background -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🐔 90-Day Chicken Army</h1>
+            <div class="subtitle">15 habits, 15 champion chickens</div>
+            
+            <!-- Backup Controls -->
+            <div class="backup-controls">
+                <button class="backup-btn" onclick="backupData()" title="Download backup">
+                    💾 Save Backup
+                </button>
+                <button class="backup-btn" onclick="document.getElementById('restoreFile').click()" title="Restore from backup">
+                    📂 Restore Backup
+                </button>
+                <button class="backup-btn danger" onclick="exportWeeklyReport()" title="Export weekly report">
+                    📊 Weekly Report
+                </button>
+                <input type="file" id="restoreFile" class="hidden" accept=".json" onchange="restoreData(event)">
+            </div>
+        </div>
+
+        <!-- Main Pet Section -->
+        <div class="main-pet-section">
+            <div class="main-pet-container">
+                <div class="main-pet">
+                    <div class="main-chicken" id="mainChicken">🥚</div>
+                    <div id="mainPetStage" style="color: #fbbf24; margin-top: 15px; font-weight: 700; font-size: 1.2em;">Your Journey</div>
+                </div>
+                <div class="main-stats">
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span style="font-weight: 700;">Overall Progress</span>
+                            <span id="overallProgressText" style="color: #fbbf24; font-weight: 700;">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="overallProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="dayCount">0</div>
+                            <div class="stat-label">Days Complete</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="taskCompletions">0</div>
+                            <div class="stat-label">Tasks Done</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="consistencyScore">0%</div>
+                            <div class="stat-label">Consistency</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Last backup info -->
+        <div class="backup-info" id="backupInfo"></div>
+        <div style="clear: both;"></div>
+
+        <!-- Task Grid -->
+        <div id="taskGrid" class="task-grid"></div>
+    </div>
+
+    <!-- Modal for task details -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-chicken" id="modalChicken">🥚</div>
+                <div>
+                    <h2 id="modalTaskName" style="color: #fbbf24; font-weight: 800; font-size: 1.8em;">Task Name</h2>
+                    <div id="modalTaskStage" class="task-stage">Stage</div>
+                    <div id="modalChickenColor" class="chicken-color-tag">Color</div>
+                </div>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span style="font-weight: 700;">Progress</span>
+                    <span id="modalProgressText" style="color: #fbbf24; font-weight: 700;">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="modalProgress" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="modal-stats">
+                <div><strong>Total completions:</strong> <span id="modalCompletions">0</span></div>
+                <div><strong>Current streak:</strong> <span id="modalStreak">0</span> days</div>
+                <div><strong>Best streak:</strong> <span id="modalBestStreak">0</span> days</div>
+                <div><strong>Chicken type:</strong> <span id="modalChickenDesc"></span></div>
+            </div>
+            
+            <h3 style="color: #fbbf24; margin-top: 30px; margin-bottom: 15px; font-weight: 700;">Last 30 Days</h3>
+            <div class="completion-calendar" id="modalCalendar"></div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // Create particle background
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Game configuration with 15 colored chickens
+        const CONFIG = {
+            duration: 90,
+            tasks: {
+                jogging: {
+                    name: "🏃 Jogging",
+                    category: "Fitness",
+                    subtasks: "8000 steps daily",
+                    chickenColor: "Red Runner",
+                    description: "The energetic red chicken that never stops moving"
+                },
+                p90x: {
+                    name: "💪 P90X",
+                    category: "Fitness",
+                    subtasks: "Full workout",
+                    chickenColor: "Purple Power",
+                    description: "The muscular purple chicken focused on gains"
+                },
+                meditation: {
+                    name: "🧘 Meditation",
+                    category: "Mindfulness",
+                    subtasks: "Daily practice",
+                    chickenColor: "Blue Zen",
+                    description: "The peaceful blue chicken in perfect harmony"
+                },
+                sermon: {
+                    name: "📖 Sermon",
+                    category: "Spiritual",
+                    subtasks: "Daily listening/study",
+                    chickenColor: "White Divine",
+                    description: "The holy white chicken radiating wisdom"
+                },
+                reading: {
+                    name: "📚 Reading",
+                    category: "Learning",
+                    subtasks: "Daily reading",
+                    chickenColor: "Brown Scholar",
+                    description: "The scholarly brown chicken always learning"
+                },
+                devops: {
+                    name: "⚙️ DevOps",
+                    category: "Technical",
+                    subtasks: "Practice/Learning",
+                    chickenColor: "Gray Tech",
+                    description: "The technical gray chicken building systems"
+                },
+                git: {
+                    name: "🐙 Git & OSS",
+                    category: "Technical",
+                    subtasks: "Git practice + Open Source",
+                    chickenColor: "Green Collab",
+                    description: "The collaborative green chicken merging code"
+                },
+                jobsearch: {
+                    name: "💼 Job Search",
+                    category: "Career",
+                    subtasks: "Applications/networking",
+                    chickenColor: "Black Professional",
+                    description: "The sharp black chicken networking hard"
+                },
+                adhive: {
+                    name: "📊 AdHive Business",
+                    category: "Business",
+                    subtasks: "Business development",
+                    chickenColor: "Gold Entrepreneur",
+                    description: "The golden chicken building empire"
+                },
+                chess: {
+                    name: "♟️ Chess",
+                    category: "Strategy",
+                    subtasks: "Practice/puzzles",
+                    chickenColor: "Checkered Strategist",
+                    description: "The strategic checkered chicken thinking ahead"
+                },
+                german: {
+                    name: "🇩🇪 German",
+                    category: "Language",
+                    subtasks: "Daily practice",
+                    chickenColor: "German Yellow-Red",
+                    description: "The polyglot chicken speaking Deutsche"
+                },
+                bodyweight: {
+                    name: "🔥 Bodyweight Circuit",
+                    category: "Fitness",
+                    subtasks: "50 each: situps, crunches, dips, burpees, pushups, squats",
+                    chickenColor: "Orange Fire",
+                    description: "The blazing orange chicken pushing limits"
+                },
+                keyknowledge: {
+                    name: "🧠 Key Knowledge",
+                    category: "Learning",
+                    subtasks: "Review/study",
+                    chickenColor: "Cyan Brain",
+                    description: "The cerebral cyan chicken pondering mysteries"
+                },
+                semenretention: {
+                    name: "⚡ Semen Retention",
+                    category: "Discipline",
+                    subtasks: "NoFap - Complete abstinence",
+                    chickenColor: "Electric Yellow",
+                    description: "The electric chicken radiating pure energy"
+                },
+                straightedge: {
+                    name: "🧊 Straight Edge",
+                    category: "Discipline",
+                    subtasks: "No drinking, no smoking, no substances",
+                    chickenColor: "Ice Crystal",
+                    description: "The crystal-clear chicken of purity"
+                }
+            }
+        };
+
+        // Evolution stages mapping - UNIVERSAL FOR ALL CHICKENS
+        const STAGE_MAPPING = [
+            { name: "Egg", emoji: "🥚", threshold: 0, animation: "stage-egg" },
+            { name: "Hatching", emoji: "🐣", threshold: 0.1, animation: "stage-hatching" },
+            { name: "Baby", emoji: "🐤", threshold: 0.2, animation: "stage-baby" },
+            { name: "Juvenile", emoji: "🐥", threshold: 0.4, animation: "stage-juvenile" },
+            { name: "Adult", emoji: "🐔", threshold: 0.6, animation: "stage-adult" },
+            { name: "Champion", emoji: "🐓", threshold: 0.8, animation: "stage-champion" }
+        ];
+
+        // Game state
+        let gameState = {
+            startDate: new Date().toISOString(),
+            tasks: {},
+            lastBackup: null
+        };
+
+        // Initialize tasks
+        Object.keys(CONFIG.tasks).forEach(taskId => {
+            gameState.tasks[taskId] = {
+                completions: {}
+            };
+        });
+
+        // Load saved data
+        function loadGame() {
+            const saved = localStorage.getItem('chickenArmyProgress');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    gameState = {
+                        startDate: parsed.startDate || new Date().toISOString(),
+                        tasks: { ...gameState.tasks, ...parsed.tasks },
+                        lastBackup: parsed.lastBackup || null
+                    };
+                    showToast("Progress loaded successfully! 🎉");
+                } catch (e) {
+                    showToast("Error loading saved data", true);
+                }
+            }
+            updateBackupInfo();
+            render();
+        }
+
+        // Save game
+        function saveGame() {
+            localStorage.setItem('chickenArmyProgress', JSON.stringify(gameState));
+        }
+
+        // Show toast notification
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${isError ? 'error' : ''} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Backup data to file
+        function backupData() {
+            const backupData = {
+                ...gameState,
+                backupDate: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `chicken-army-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            
+            gameState.lastBackup = new Date().toISOString();
+            saveGame();
+            updateBackupInfo();
+            showToast("Backup saved successfully! 💾");
+        }
+
+        // Restore data from file
+        function restoreData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const backup = JSON.parse(e.target.result);
+                    
+                    // Validate backup structure
+                    if (backup.tasks && backup.startDate) {
+                        gameState = {
+                            startDate: backup.startDate,
+                            tasks: backup.tasks,
+                            lastBackup: new Date().toISOString()
+                        };
+                        saveGame();
+                        render();
+                        showToast("Backup restored successfully! 🎉");
+                    } else {
+                        showToast("Invalid backup file", true);
+                    }
+                } catch (e) {
+                    showToast("Error reading backup file", true);
+                }
+            };
+            reader.readAsText(file);
+            
+            // Clear file input
+            event.target.value = '';
+        }
+
+        // Export weekly report
+        function exportWeeklyReport() {
+            const daysPassed = getDaysPassed();
+            const report = [];
+            
+            report.push("📊 CHICKEN ARMY WEEKLY REPORT");
+            report.push(`Generated: ${new Date().toLocaleString()}`);
+            report.push(`Day ${daysPassed} of ${CONFIG.duration}\n`);
+            
+            report.push("📈 OVERALL STATS:");
+            let totalCompletions = 0;
+            Object.keys(gameState.tasks).forEach(taskId => {
+                totalCompletions += Object.keys(gameState.tasks[taskId].completions).length;
+            });
+            const consistency = Math.round((totalCompletions / (Object.keys(gameState.tasks).length * daysPassed)) * 100);
+            report.push(`Total Tasks Completed: ${totalCompletions}`);
+            report.push(`Overall Consistency: ${consistency}%\n`);
+            
+            report.push("🐔 CHICKEN PROGRESS:");
+            Object.keys(CONFIG.tasks).forEach(taskId => {
+                const task = CONFIG.tasks[taskId];
+                const completions = Object.keys(gameState.tasks[taskId].completions).length;
+                const stage = getTaskStage(taskId, completions);
+                const streak = calculateStreak(gameState.tasks[taskId].completions);
+                const percentage = daysPassed > 0 ? Math.round((completions / daysPassed) * 100) : 0;
+                
+                report.push(`\n${task.name} (${task.chickenColor}):`);
+                report.push(`  Stage: ${stage.name} ${stage.emoji} (${percentage}%)`);
+                report.push(`  Streak: ${streak} days`);
+                report.push(`  Completions: ${completions}/${daysPassed}`);
+            });
+            
+            const blob = new Blob([report.join('\n')], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `chicken-report-week-${Math.ceil(daysPassed/7)}.txt`;
+            a.click();
+            
+            showToast("Weekly report exported! 📊");
+        }
+
+        // Update backup info display
+        function updateBackupInfo() {
+            const info = document.getElementById('backupInfo');
+            if (gameState.lastBackup) {
+                const date = new Date(gameState.lastBackup);
+                info.textContent = `Last backup: ${date.toLocaleString()}`;
+            } else {
+                info.textContent = 'No backup yet - Save one now!';
+            }
+        }
+
+        // Get days passed
+        function getDaysPassed() {
+            const start = new Date(gameState.startDate);
+            const now = new Date();
+            return Math.floor((now - start) / (1000 * 60 * 60 * 24)) + 1;
+        }
+
+        // Get stage for a task
+        function getTaskStage(taskId, completions) {
+            const daysPassed = getDaysPassed();
+            if (daysPassed === 0) return STAGE_MAPPING[0];
+            
+            const ratio = completions / daysPassed;
+            
+            for (let i = STAGE_MAPPING.length - 1; i >= 0; i--) {
+                if (ratio >= STAGE_MAPPING[i].threshold) {
+                    return STAGE_MAPPING[i];
+                }
+            }
+            return STAGE_MAPPING[0];
+        }
+
+        // Calculate streak
+        function calculateStreak(completions) {
+            const dates = Object.keys(completions).sort().reverse();
+            if (dates.length === 0) return 0;
+            
+            let streak = 1;
+            let currentDate = new Date(dates[0]);
+            
+            for (let i = 1; i < dates.length; i++) {
+                const prevDate = new Date(dates[i]);
+                const diffDays = Math.round((currentDate - prevDate) / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === 1) {
+                    streak++;
+                    currentDate = prevDate;
+                } else {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+
+        // Mark task as complete
+        function completeTask(taskId) {
+            const today = new Date().toISOString().split('T')[0];
+            
+            if (!gameState.tasks[taskId].completions[today]) {
+                gameState.tasks[taskId].completions[today] = true;
+                saveGame();
+                
+                // Celebration effect
+                const btn = event.target;
+                const chicken = btn.closest('.task-card').querySelector('.task-chicken');
+                chicken.classList.add('celebrating');
+                setTimeout(() => chicken.classList.remove('celebrating'), 600);
+                
+                // Visual feedback
+                btn.textContent = "✓ Done!";
+                btn.style.background = "linear-gradient(135deg, #10b981, #059669)";
+                setTimeout(() => {
+                    render();
+                }, 800);
+                
+                showToast("Task completed! Keep it up! 🎉");
+            }
+        }
+
+        // Check if task done today
+        function isDoneToday(taskId) {
+            const today = new Date().toISOString().split('T')[0];
+            return gameState.tasks[taskId].completions[today] || false;
+        }
+
+        // Show task details modal
+        let currentModalTask = null;
+        
+        function showTaskDetails(taskId) {
+            currentModalTask = taskId;
+            const task = CONFIG.tasks[taskId];
+            const completions = gameState.tasks[taskId].completions;
+            const completionCount = Object.keys(completions).length;
+            const daysPassed = getDaysPassed();
+            const stage = getTaskStage(taskId, completionCount);
+            const streak = calculateStreak(completions);
+            const bestStreak = calculateBestStreak(completions);
+            
+            document.getElementById('modalTaskName').textContent = task.name;
+            document.getElementById('modalChicken').textContent = stage.emoji;
+            document.getElementById('modalTaskStage').textContent = stage.name;
+            document.getElementById('modalChickenColor').textContent = task.chickenColor;
+            document.getElementById('modalChickenDesc').textContent = task.chickenColor + " - " + task.description;
+            document.getElementById('modalCompletions').textContent = completionCount;
+            document.getElementById('modalStreak').textContent = streak;
+            document.getElementById('modalBestStreak').textContent = bestStreak;
+            document.getElementById('modalProgressText').textContent = 
+                daysPassed > 0 ? `${Math.round((completionCount / daysPassed) * 100)}%` : '0%';
+            document.getElementById('modalProgress').style.width = 
+                daysPassed > 0 ? `${(completionCount / daysPassed) * 100}%` : '0%';
+            
+            // Generate calendar
+            const calendar = document.getElementById('modalCalendar');
+            calendar.innerHTML = '';
+            
+            const today = new Date();
+            for (let i = 29; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                
+                const dayDiv = document.createElement('div');
+                dayDiv.className = `calendar-day ${completions[dateStr] ? 'completed' : ''}`;
+                dayDiv.textContent = date.getDate();
+                dayDiv.title = date.toLocaleDateString();
+                calendar.appendChild(dayDiv);
+            }
+            
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('taskModal').classList.remove('active');
+        }
+
+        // Calculate best streak
+        function calculateBestStreak(completions) {
+            const dates = Object.keys(completions).sort();
+            if (dates.length === 0) return 0;
+            
+            let bestStreak = 1;
+            let currentStreak = 1;
+            
+            for (let i = 1; i < dates.length; i++) {
+                const prevDate = new Date(dates[i-1]);
+                const currDate = new Date(dates[i]);
+                const diffDays = Math.round((currDate - prevDate) / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === 1) {
+                    currentStreak++;
+                    bestStreak = Math.max(bestStreak, currentStreak);
+                } else {
+                    currentStreak = 1;
+                }
+            }
+            
+            return bestStreak;
+        }
+
+        // Render everything
+        function render() {
+            const daysPassed = getDaysPassed();
+            const taskGrid = document.getElementById('taskGrid');
+            
+            // Calculate overall stats
+            let totalCompletions = 0;
+            Object.keys(gameState.tasks).forEach(taskId => {
+                totalCompletions += Object.keys(gameState.tasks[taskId].completions).length;
+            });
+            
+            const avgCompletions = totalCompletions / Object.keys(gameState.tasks).length;
+            const consistencyScore = daysPassed > 0 ? 
+                Math.round((totalCompletions / (Object.keys(gameState.tasks).length * daysPassed)) * 100) : 0;
+            
+            // Update main chicken based on overall progress
+            let mainStage = STAGE_MAPPING[0];
+            for (let i = STAGE_MAPPING.length - 1; i >= 0; i--) {
+                if (consistencyScore / 100 >= STAGE_MAPPING[i].threshold) {
+                    mainStage = STAGE_MAPPING[i];
+                    break;
+                }
+            }
+            
+            document.getElementById('mainChicken').textContent = mainStage.emoji;
+            document.getElementById('mainChicken').className = `main-chicken ${mainStage.animation}`;
+            document.getElementById('mainPetStage').textContent = mainStage.name + " Stage";
+            document.getElementById('overallProgress').style.width = `${consistencyScore}%`;
+            document.getElementById('overallProgressText').textContent = `${consistencyScore}%`;
+            
+            // Update stats
+            document.getElementById('dayCount').textContent = daysPassed;
+            document.getElementById('taskCompletions').textContent = totalCompletions;
+            document.getElementById('consistencyScore').textContent = `${consistencyScore}%`;
+            
+            // Render task cards
+            taskGrid.innerHTML = '';
+            
+            Object.keys(CONFIG.tasks).forEach(taskId => {
+                const task = CONFIG.tasks[taskId];
+                const completions = Object.keys(gameState.tasks[taskId].completions).length;
+                const stage = getTaskStage(taskId, completions);
+                const doneToday = isDoneToday(taskId);
+                const streak = calculateStreak(gameState.tasks[taskId].completions);
+                
+                const card = document.createElement('div');
+                card.className = 'task-card';
+                
+                card.innerHTML = `
+                    <div class="task-header">
+                        <div class="task-chicken ${stage.animation}">${stage.emoji}</div>
+                        <div class="task-info">
+                            <div class="task-name">${task.name}</div>
+                            <div class="task-category">${task.category}</div>
+                            <div>
+                                <span class="task-stage">${stage.name}</span>
+                                <span class="chicken-color-tag">${task.chickenColor}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task-stats">
+                        <span>🔥 ${streak} day streak</span>
+                        <span>📊 ${completions}/${daysPassed} days</span>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${daysPassed > 0 ? (completions / daysPassed) * 100 : 0}%"></div>
+                    </div>
+                    
+                    <div class="task-description">
+                        "${task.description}"
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="complete-btn" onclick="completeTask('${taskId}')" ${doneToday ? 'disabled' : ''}>
+                            ${doneToday ? '✓ Completed Today' : 'Complete Today'}
+                        </button>
+                        <button class="view-details-btn" onclick="showTaskDetails('${taskId}')">
+                            📊 Details
+                        </button>
+                    </div>
+                `;
+                
+                taskGrid.appendChild(card);
+            });
+        }
+
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('taskModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // ESC to close modal
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Auto backup reminder (every 7 days)
+        function checkBackupReminder() {
+            if (gameState.lastBackup) {
+                const lastBackup = new Date(gameState.lastBackup);
+                const now = new Date();
+                const daysSinceBackup = Math.floor((now - lastBackup) / (1000 * 60 * 60 * 24));
+                
+                if (daysSinceBackup >= 7) {
+                    showToast("It's been a week since your last backup! 💾");
+                }
+            }
+        }
+
+        // Initialize
+        createParticles();
+        loadGame();
+        
+        // Auto-save every minute
+        setInterval(saveGame, 60000);
+        
+        // Check backup reminder every hour
+        setInterval(checkBackupReminder, 3600000);
+        setTimeout(checkBackupReminder, 5000); // Check after 5 seconds
+    </script>
+</body>
+</html>
