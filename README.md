@@ -2,6 +2,10 @@
 
 A gamified habit tracker that transforms your daily tasks into a growing flock of champion chickens. Watch 15 unique colored chickens evolve from eggs to champions as you build consistency over 90 days.
 
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/9d22262f-71bd-4431-8c17-dbcd8e63127e" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/aab7284f-5cfc-4a2a-9d21-e0974bb1a184" />
+
+
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Maintenance](https://img.shields.io/badge/maintained-yes-brightgreen.svg)
